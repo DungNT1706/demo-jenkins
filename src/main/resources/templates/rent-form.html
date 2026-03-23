@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Xác nhận thuê xe</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">🚗 Chi tiết đặt xe</h4>
+        </div>
+        <div class="card-body">
+
+          <div class="alert alert-info">
+            <h5>Bạn đang chọn thuê chiếc: <strong th:text="${car.carName}">Tên Xe</strong></h5>
+            <p class="mb-0">Đơn giá: <strong class="text-danger" th:text="${car.rentPrice}">500,000</strong> VNĐ / Ngày</p>
+          </div>
+
+          <div th:if="${errorMsg}" class="alert alert-danger fw-bold shadow-sm">
+            ❌ <span th:text="${errorMsg}">Lỗi nhập ngày!</span>
+          </div>
+
+          <form th:action="@{/cars/rent}" method="post">
+            <input type="hidden" name="carId" th:value="${car.id}" />
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Ngày nhận xe (Pickup Date)*</label>
+              <input type="date" class="form-control" name="pickupDate" id="pickupDate" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Ngày trả xe (Return Date)*</label>
+              <input type="date" class="form-control" name="returnDate" id="returnDate" required>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <a href="/cars" class="btn btn-secondary">Quay lại</a>
+              <button type="submit" class="btn btn-success fw-bold px-4"
+                      onsubmit="return confirm('Xác nhận đặt thuê chiếc xe này?');">
+                Chốt Đơn Đặt Xe
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pickupInput = document.getElementById('pickupDate');
+  const returnInput = document.getElementById('returnDate');
+
+  // 1. Không cho phép mượn xe ở trong quá khứ (Phải từ hôm nay trở đi)
+  const today = new Date().toISOString().split('T')[0];
+  pickupInput.min = today;
+
+  // 2. Khi vừa ấn chọn ngày mượn xong...
+  pickupInput.addEventListener('change', function() {
+    if (this.value) {
+      let pickupDateObj = new Date(this.value);
+      // Tự động cộng thêm 1 ngày để làm mốc cho ngày trả
+      pickupDateObj.setDate(pickupDateObj.getDate() + 1);
+      let nextDay = pickupDateObj.toISOString().split('T')[0];
+
+      // Ép lịch của ô Return Date không được lùi về trước nextDay
+      returnInput.min = nextDay;
+
+      // Chữa cháy: Nếu khách đã chọn sẵn ngày trả sai bét, tự động reset nó thành nextDay
+      if (returnInput.value && returnInput.value <= this.value) {
+        returnInput.value = nextDay;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
