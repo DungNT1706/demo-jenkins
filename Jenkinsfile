@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    tools {
+            // Gọi chính xác cái tên bạn vừa đặt ở Bước 1
+            maven 'Maven 3.9.6'
+        }
     // BƯỚC QUAN TRỌNG: Tự động lên GitHub kiểm tra code mới mỗi 2 phút
     // H/2 nghĩa là Hash/2 (khoảng 2 phút 1 lần). Không cần Webhook hay Ngrok!
     triggers {
