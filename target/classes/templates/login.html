@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập - FUCAR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Thêm chút CSS để căn giữa form đăng nhập ra giữa màn hình */
+        body {
+            background-color: #f4f6f9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <h3 class="text-center mb-4 text-primary">Hệ thống Thuê Xe</h3>
+
+    <div th:if="${error}" th:text="${error}" class="alert alert-danger text-center" role="alert">
+        Sai tài khoản hoặc mật khẩu!
+    </div>
+
+    <form th:action="@{/auth/login}" method="post">
+
+        <div class="mb-3">
+            <label for="email" class="form-label fw-bold">Email đăng nhập</label>
+            <input type="email" class="form-control" id="email" name="email" required placeholder="Nhập email của bạn">
+        </div>
+
+        <div class="mb-4">
+            <label for="password" class="form-label fw-bold">Mật khẩu</label>
+            <input type="password" class="form-control" id="password" name="password" required placeholder="Nhập mật khẩu">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 fw-bold">ĐĂNG NHẬP</button>
+
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="/auth/register" class="text-decoration-none text-muted">Bạn chưa có tài khoản? Đăng ký ngay</a>
+    </div>
+</div>
+
+</body>
+</html>

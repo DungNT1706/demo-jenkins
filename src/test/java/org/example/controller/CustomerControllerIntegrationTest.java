@@ -35,7 +35,6 @@ public class CustomerControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // Sử dụng @MockBean để giả lập các Service mà Controller phụ thuộc vào
     @MockitoBean
     private CarRentalService carRentalService;
 
