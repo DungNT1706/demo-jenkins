@@ -100,19 +100,5 @@ public class CustomerControllerIntegrationTest {
                 .andExpect(model().attribute("customer", mockCustomer));
     }
 
-    // 4. Test cập nhật Profile (POST request)
-//    @Test
-//    void updateProfile_LoggedIn_RedirectsWithSuccessMsg() throws Exception {
-//        // Act & Assert
-//        mockMvc.perform(post("/customers/profile/update")
-//                        .session(session)
-//                        .param("customerName", "Nguyen Van B") // Giả lập dữ liệu form gửi lên
-//                        .param("mobile", "0912345678"))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/customers/profile"))
-//                .andExpect(flash().attributeExists("successMsg")); // Kiểm tra thông báo thành công
-//
-//        // Kiểm tra xem Controller có thực sự gọi hàm update trong Service không
-//        verify(customerService).updateCustomerProfile(eq(TEST_EMAIL), any(Customer.class));
-//    }
+
 }

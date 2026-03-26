@@ -38,7 +38,7 @@ class CarServiceTest {
     void setUp() {
         mockCar = new Car();
         mockCar.setId("CAR001");
-        mockCar.setCarName("Tesla Model 3");
+        mockCar.setCarName("Tesla Model 4");
         mockCar.setStatus("AVAILABLE");
     }
 
